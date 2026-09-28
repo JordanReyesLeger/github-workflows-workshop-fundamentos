@@ -1,0 +1,32 @@
+name: 00 · Hola workflows
+
+# Este workflow solo se ejecuta cuando tú lo pides desde la pestaña Actions.
+on:
+  workflow_dispatch:
+    inputs:
+      nombre:
+        description: "¿Cómo te llamas?"
+        required: true
+        default: "ciclista"
+
+jobs:
+  saludar:
+    name: Saludar y mostrar el contexto
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Saludar a la persona
+        run: echo "¡Hola, ${{ inputs.nombre }}! Bienvenido a GitHub Actions."
+
+      - name: Mostrar quién y qué disparó el workflow
+        run: |
+          echo "Repositorio : ${{ github.repository }}"
+          echo "Rama        : ${{ github.ref_name }}"
+          echo "Evento      : ${{ github.event_name }}"
+          echo "Ejecutado por: ${{ github.actor }}"
+
+      - name: Mostrar la máquina donde corre
+        run: |
+          echo "Sistema operativo: $RUNNER_OS"
+          echo "Directorio de trabajo: $PWD"
+          uname -a

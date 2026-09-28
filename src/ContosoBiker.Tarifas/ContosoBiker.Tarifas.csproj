@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PackageId>ContosoBiker.Tarifas</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Contoso Biker</Authors>
+    <Description>Calculo de tarifas de renta de bicicletas para el taller de GitHub Actions.</Description>
+  </PropertyGroup>
+
+</Project>
