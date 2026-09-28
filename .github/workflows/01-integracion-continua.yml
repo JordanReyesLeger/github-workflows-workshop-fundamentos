@@ -1,0 +1,34 @@
+name: 01 · Integración continua
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+env:
+  VERSION_DOTNET: "10.0.x"
+
+jobs:
+  construir-y-probar:
+    name: Construir y probar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v7
+
+      - name: Instalar el SDK de .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: ${{ env.VERSION_DOTNET }}
+
+      - name: Restaurar dependencias
+        run: dotnet restore TallerWorkflows.sln
+
+      - name: Compilar
+        run: dotnet build TallerWorkflows.sln --configuration Release --no-restore
+
+      - name: Ejecutar pruebas
+        run: dotnet test TallerWorkflows.sln --configuration Release --no-build --verbosity normal

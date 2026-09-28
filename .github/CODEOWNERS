@@ -1,0 +1,6 @@
+# Personas que revisan por omisión cualquier cambio del repositorio.
+# Reemplaza @TU_USUARIO por tu usuario de GitHub antes del ejercicio 05.
+*                       @TU_USUARIO
+
+# Los workflows son código de infraestructura: siempre se revisan.
+/.github/workflows/     @TU_USUARIO
