@@ -7,7 +7,7 @@
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
 ![.NET](https://img.shields.io/badge/.NET%2010-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![YAML](https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white)
-![Codespaces](https://img.shields.io/badge/Codespaces-24292E?style=for-the-badge&logo=github&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 
 ![Nivel](https://img.shields.io/badge/Nivel-Principiante%20en%20Actions-brightgreen)
 ![Duración](https://img.shields.io/badge/Duración-2%20horas-red)
@@ -131,13 +131,28 @@ flowchart LR
 
 ### 💻 Herramientas
 
-Tienes dos caminos. **Elige uno**:
+El taller se hace **en tu máquina**. Necesitas estas tres herramientas
+instaladas antes de empezar:
 
-| | 🅰️ GitHub Codespaces | 🅱️ Tu máquina |
-|---|---|---|
-| Instalación | Nada | SDK .NET 10, Git 2.30+, GitHub CLI 2.40+ |
-| Tiempo de arranque | ~2 min | ~15 min si empiezas de cero |
-| Recomendado para | Talleres en vivo | Quien ya tiene todo instalado |
+| Herramienta | Versión mínima | Cómo comprobarlo | Dónde obtenerla |
+|-------------|----------------|------------------|-----------------|
+| **SDK de .NET** | 10.0 | `dotnet --version` | [dotnet.microsoft.com](https://dotnet.microsoft.com/download) |
+| **Git** | 2.30 | `git --version` | [git-scm.com](https://git-scm.com/downloads) |
+| **GitHub CLI** | 2.40 | `gh --version` | [cli.github.com](https://cli.github.com) |
+
+Y un editor. Recomendado: **Visual Studio Code** con estas dos extensiones, que
+te validan el YAML mientras lo escribes y te ahorran la mitad de los errores del
+taller:
+
+| Extensión | Para qué |
+|-----------|----------|
+| [GitHub Actions](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-github-actions) | Autocompletado y validación de los workflows |
+| [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) | Compilar y ejecutar las pruebas desde el editor |
+
+> [!TIP]
+> Si vas a impartir el taller, pide que todo esto quede instalado **el día
+> anterior**. Instalar el SDK de .NET en vivo, con 20 personas a la vez, se come
+> media sesión.
 
 ### 🔴 Un requisito que no es negociable
 
@@ -184,7 +199,6 @@ Suficientemente simple para no distraerte del tema del taller.
 📁 .
 ├── 📄 README.md                     ← estás aquí: TODO el taller
 ├── 📄 TallerWorkflows.sln
-├── 📁 .devcontainer/                Configuración de Codespaces
 ├── 📁 .github/
 │   ├── 📁 workflows/
 │   │   ├── 00-hola-workflows.yml         Módulo 1 · manual
@@ -223,22 +237,20 @@ Suficientemente simple para no distraerte del tema del taller.
 Una copia propia de este repositorio, en tu cuenta, con el proyecto compilando y
 las 20 pruebas pasando. Si eso funciona, todo lo demás del taller funciona.
 
-### 🔧 Paso 1 · Crea tu copia del repositorio
+### 🔧 Paso 1 · Comprueba tus herramientas
 
-<details open>
-<summary><b>🅰️ Con GitHub Codespaces (recomendado)</b></summary>
+Antes de nada, confirma que tienes lo necesario:
 
-1. En la página del repositorio, pulsa **Use this template** → **Create a new repository**.
-   - Nombre sugerido: `mi-taller-workflows`
-   - Visibilidad: **Public** ⚠️
-2. Ya en **tu** repositorio, pulsa el botón verde **Code**.
-3. Pestaña **Codespaces** → **Create codespace on main**.
-4. Espera 1-2 minutos a que abra Visual Studio Code en el navegador.
+```bash
+dotnet --version     # debe empezar con 10.
+git --version        # 2.30 o superior
+gh --version         # 2.40 o superior
+```
 
-</details>
+Si alguno falla, instálalo con los enlaces de
+[Pre-requisitos](#️-pre-requisitos) antes de seguir.
 
-<details>
-<summary><b>🅱️ En tu máquina</b></summary>
+### 🔧 Paso 2 · Crea tu copia del repositorio
 
 ```bash
 # 1. Inicia sesión en GitHub desde la terminal
@@ -248,10 +260,31 @@ gh auth login
 gh repo create mi-taller-workflows --public --clone \
   --template PROPIETARIO/github-workflows-workshop-fundamentos
 
+# 3. Entra en la carpeta
 cd mi-taller-workflows
 ```
 
-Si el repositorio no está marcado como *template*, usa un fork:
+<details>
+<summary><b>🖱️ ¿Prefieres hacerlo desde el navegador?</b></summary>
+
+1. En la página del repositorio, pulsa **Use this template** →
+   **Create a new repository**.
+   - Nombre sugerido: `mi-taller-workflows`
+   - Visibilidad: **Public** ⚠️
+2. Ya en **tu** repositorio, pulsa el botón verde **Code** y copia la URL.
+3. Clónalo en tu máquina:
+
+   ```bash
+   git clone https://github.com/TU_USUARIO/mi-taller-workflows.git
+   cd mi-taller-workflows
+   ```
+
+</details>
+
+<details>
+<summary><b>🍴 Si el repositorio no está marcado como <i>template</i></b></summary>
+
+Usa un fork, que sirve igual para todo el taller:
 
 ```bash
 gh repo fork PROPIETARIO/github-workflows-workshop-fundamentos --clone
@@ -259,7 +292,7 @@ gh repo fork PROPIETARIO/github-workflows-workshop-fundamentos --clone
 
 </details>
 
-### 🔧 Paso 2 · Comprueba que todo funciona
+### 🔧 Paso 3 · Comprueba que el proyecto funciona
 
 ```bash
 dotnet test TallerWorkflows.sln
@@ -271,14 +304,18 @@ Salida esperada:
 Passed!  - Failed: 0, Passed: 20, Skipped: 0, Total: 20
 ```
 
-O usa el script que hace todas las comprobaciones de una vez:
+> [!NOTE]
+> La primera vez tarda más: .NET descarga los paquetes NuGet del proyecto. Las
+> siguientes ejecuciones son cuestión de segundos.
 
-```bash
-bash scripts/verificar-entorno.sh      # Linux, macOS, Codespaces
-```
+O usa el script que hace todas las comprobaciones de una vez:
 
 ```powershell
 pwsh scripts/verificar-entorno.ps1     # Windows
+```
+
+```bash
+bash scripts/verificar-entorno.sh      # Linux y macOS
 ```
 
 ```text
@@ -291,7 +328,7 @@ pwsh scripts/verificar-entorno.ps1     # Windows
   [OK]    Ejecutar las pruebas
 ```
 
-### 🔧 Paso 3 · Habilita Actions en tu repositorio
+### 🔧 Paso 4 · Habilita Actions en tu repositorio
 
 En **tu** repositorio: **Settings → Actions → General → Allow all actions and
 reusable workflows** → **Save**.
@@ -301,9 +338,22 @@ reusable workflows** → **Save**.
 > forks a veces viene deshabilitado y hay que pulsar un botón verde en la
 > pestaña **Actions** que dice *"I understand my workflows, go ahead and enable them"*.
 
+### 🆘 Si algo falla
+
+| Síntoma | Causa probable | Solución |
+|---------|----------------|----------|
+| `dotnet: command not found` | El SDK no está instalado, o la terminal se abrió antes de instalarlo | Instala el [SDK de .NET 10](https://dotnet.microsoft.com/download) y **abre una terminal nueva** |
+| `NETSDK1045: no soporta net10.0` | Tienes un SDK anterior | `dotnet --list-sdks`. Si no ves un `10.x`, instálalo |
+| `gh: command not found` | Falta GitHub CLI | Instálalo desde [cli.github.com](https://cli.github.com) |
+| `gh auth login` falla | Estás detrás de un proxy corporativo | Usa la opción de autenticación por navegador, o un token personal |
+| `pwsh` no existe en Windows | Tienes Windows PowerShell 5, no PowerShell 7 | Usa `powershell scripts/verificar-entorno.ps1` |
+| `error NU1101: no se encontró el paquete` | Sin conexión o NuGet bloqueado por la red | Comprueba tu acceso a `nuget.org` |
+
 ### ✅ Cómo sabes que terminaste
 
+- [ ] Tienes el SDK de .NET 10, Git y GitHub CLI funcionando en tu máquina
 - [ ] El repositorio existe en **tu** cuenta y es **público**
+- [ ] Lo clonaste y estás dentro de la carpeta del proyecto
 - [ ] `dotnet test` termina con **20 pruebas en verde**
 - [ ] La pestaña **Actions** de tu repositorio se abre y muestra workflows
 
@@ -2161,7 +2211,10 @@ habría podido mergearse en rojo. Si pasó, revisa que el ruleset esté en
 - [ ] Corre el taller completo en un repositorio limpio, de principio a fin
 - [ ] Verifica que las versiones de las acciones siguen vigentes
   (`actions/checkout`, `setup-dotnet`, `upload-artifact`, `download-artifact`)
-- [ ] Confirma que el SDK del `.devcontainer` coincide con el `TargetFramework`
+- [ ] **Envía los requisitos con días de anticipación**: SDK de .NET 10, Git y
+  GitHub CLI instalados, y `gh auth login` hecho
+- [ ] Pide que ejecuten `dotnet --version`, `git --version` y `gh --version` y
+  te confirmen el resultado **antes** de la sesión
 - [ ] Publica el repositorio como **template** para que la gente lo copie en un clic
 - [ ] Reemplaza `@TU_USUARIO` en `.github/CODEOWNERS`
 - [ ] Ten abierta una ejecución tuya ya terminada, por si la red falla en vivo
@@ -2182,16 +2235,22 @@ habría podido mergearse en rojo. Si pasó, revisa que el ruleset esté en
 | 85-105 | Módulo 5 · Proteger main | Guiado, es el clímax |
 | 105-120 | Módulo 6 · Tags y releases | Guiado + cierre |
 
+> [!IMPORTANT]
+> Los 10 minutos del Módulo 0 **solo alcanzan si la gente llega con las
+> herramientas ya instaladas**. Instalar el SDK de .NET en vivo se come media
+> sesión. Envía los requisitos con días de anticipación y pide confirmación.
+
 </details>
 
 <details>
-<summary><b>⚠️ Los tres puntos donde se atora la gente</b></summary>
+<summary><b>⚠️ Los cuatro puntos donde se atora la gente</b></summary>
 
 | # | Dónde | Por qué | Qué hacer |
 |---|-------|---------|-----------|
-| 1 | Módulo 0, crear el repo | Lo crean privado y el Módulo 5 no funciona | Repítelo tres veces: **público**. Revisa uno por uno antes de avanzar |
-| 2 | Módulo 5, encontrar el check | El check solo aparece si el job ya corrió | Asegúrate de que todos tengan una ejecución previa de `Probar` |
-| 3 | Módulo 6, empujar el tag | `git push` no envía tags | Escríbelo en la pizarra: `git push origin v1.0.0` |
+| 1 | Módulo 0, las herramientas | Llegan sin el SDK, o con uno anterior a .NET 10 | Pide `dotnet --version` por adelantado. Ten a mano el enlace de descarga |
+| 2 | Módulo 0, crear el repo | Lo crean privado y el Módulo 5 no funciona | Repítelo tres veces: **público**. Revisa uno por uno antes de avanzar |
+| 3 | Módulo 5, encontrar el check | El check solo aparece si el job ya corrió | Asegúrate de que todos tengan una ejecución previa de `Probar` |
+| 4 | Módulo 6, empujar el tag | `git push` no envía tags | Escríbelo en la pizarra: `git push origin v1.0.0` |
 
 </details>
 

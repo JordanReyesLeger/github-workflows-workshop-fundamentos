@@ -18,5 +18,6 @@ labels: error
 ## Ejercicio y entorno
 
 - Ejercicio:
-- Entorno: Codespaces / máquina local
+- Sistema operativo: Windows / macOS / Linux
+- Versión del SDK (`dotnet --version`):
 - Enlace a la ejecución de Actions:

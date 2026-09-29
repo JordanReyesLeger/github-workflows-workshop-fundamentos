@@ -28,7 +28,7 @@ Write-Host "---------------------------------------------------"
 Test-Paso "Git instalado"          { git --version }
 Test-Paso "SDK de .NET instalado"  { dotnet --version }
 Test-Paso "GitHub CLI instalado"   { gh --version }
-Test-Paso "Sesion de GitHub CLI"   { gh auth status }
+Test-Paso "Sesion de GitHub CLI"   { gh auth token }
 Test-Paso "Restaurar dependencias" { dotnet restore TallerWorkflows.sln }
 Test-Paso "Compilar la solucion"   { dotnet build TallerWorkflows.sln --configuration Release --no-restore }
 Test-Paso "Ejecutar las pruebas"   { dotnet test TallerWorkflows.sln --configuration Release --no-build }
@@ -38,8 +38,8 @@ Write-Host "  Correctas: $correctas   Fallidas: $fallidas"
 Write-Host ""
 
 if ($fallidas -gt 0) {
-    Write-Host "Revisa el ejercicio 00 antes de continuar." -ForegroundColor Yellow
+    Write-Host "Revisa el Modulo 0 del README antes de continuar." -ForegroundColor Yellow
     exit 1
 }
 
-Write-Host "Todo listo. Empieza con laboratorio/01-tu-primer-workflow.md" -ForegroundColor Green
+Write-Host "Todo listo. Sigue con el Modulo 1 del README." -ForegroundColor Green
